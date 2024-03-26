@@ -73,36 +73,6 @@ class AssistantManager:
             self.summary = "\n".join(summary)
             print(f"SUMMARY-----> {role.capitalize()}: ==> {response}")
 
-            # for msg in messages:
-            #     role = msg.role
-            #     content = msg.content[0].text.value
-            #     print(f"SUMMARY-----> {role.capitalize()}: ==> {content}")
-
-    # def call_required_functions(self, required_actions):
-    #     if not self.run:
-    #         return
-    #     tool_outputs = []
-
-    #     for action in required_actions["tool_calls"]:
-    #         func_name = action["function"]["name"]
-    #         arguments = json.loads(action["function"]["arguments"])
-
-    #         if func_name == "get_news":
-    #             output = get_news(topic=arguments["topic"])
-    #             print(f"STUFFFFF;;;;{output}")
-    #             final_str = ""
-    #             for item in output:
-    #                 final_str += "".join(item)
-
-    #             tool_outputs.append({"tool_call_id": action["id"], "output": final_str})
-    #         else:
-    #             raise ValueError(f"Unknown function: {func_name}")
-
-    #     print("Submitting outputs back to the Assistant...")
-    #     self.client.beta.threads.runs.submit_tool_outputs(
-    #         thread_id=self.thread.id, run_id=self.run.id, tool_outputs=tool_outputs
-    #     )
-
     # for streamlit
     def get_summary(self):
         return self.summary
@@ -125,15 +95,6 @@ class AssistantManager:
                         required_actions=run_status.required_action.submit_tool_outputs.model_dump()
                     )
 
-    # # Run the steps
-    # def run_steps(self):
-    #     run_steps = self.client.beta.threads.runs.steps.list(
-    #         thread_id=self.thread.id, run_id=self.run.id
-    #     )
-    #     print(f"Run-Steps::: {run_steps}")
-    #     return run_steps.data
-
-
 def main():
     # news = get_news("bitcoin")
     # print(news[0])
@@ -141,10 +102,93 @@ def main():
     manager = AssistantManager()
 
     # Streamlit interface
+    button_css = """
+                <style>
+                    a {
+                        color: yellow;  /* Blue color for links */
+                        text-decoration: none;  /* No underline */
+                        }
+                    a:hover {
+                        color: white;  /* Green color on hover */
+                        }
+                    a:visited {
+                        color: yellow;  /* Green color on hover */
+                        }
+                    a[href^="mailto:"] {
+                        color: yellow;  /* Green color on hover */
+                        }
+                div.stButton > button:first-child {
+                    background-color: #222222;
+                    color: yellow;
+                    border: 2px solid #FFFF00;
+                    outline: none;
+                    
+                }
+                div.stButton > button:hover {
+                    background-color: #FFFF00;
+                    color: #222222;
+                    border: 2px solid #FFFF00;
+                    outline: none;
+                }
+                div.stButton > button:focus:not(:active) {
+                    color: #222222; 
+                    background-color: #FFFF00; 
+                    border-color: #FFFF00; 
+                    outline: none; 
+                }
+
+                div.stButton > button:focus:(:active) {
+                    color: #222222; 
+                    background-color: #FFFF00; 
+                    border-color: #FFFF00; 
+                    outline: none; 
+                }
+
+                div.stButton > button:focus:active) {
+                    color: #222222; 
+                    background-color: #FFFF00; 
+                    border-color: #FFFF00; 
+                    outline: none; 
+                }
+
+                div.stTextInput > div > div > input {
+                    border-color: #FFFF00; 
+                }
+
+                div.stTextInput > div > div > input:focus
+                    border-color: #FFFF00; 
+                    box-shadow: 0 0 0 2px #FFFF00;
+                    outline: none;
+                }
+
+                div.stTextInput > div > div > input:hover {
+                    border-color: #FFFF00; 
+                }
+
+                div.stTextInput > div > div > input:focus:not(:active) {
+                    border-color: #FFFF00; 
+                }
+
+                div.stTextInput > div > div > input:focus:(:active) {
+                    border-color: #FFFF00; 
+                }
+
+                div.stTextInput > div > div > input:focus:active) {
+                    border-color: #FFFF00; 
+                }
+                </style>
+                """
+
+    st.markdown(button_css, unsafe_allow_html=True)
+    
     st.title("Dan GPT")
+    
+    st.markdown('##### [Resume](https://drive.google.com/file/d/1PAfp5LhBju65qMU-rAlHDbk-LEI895GY/view?usp=sharing) | [LinkedIn](https://www.linkedin.com/in/polaske/) | dan.polaske@gmail.com')
 
     with st.form(key="user_input_form"):
-        instructions = st.text_input("Ask any question about Dan's resume or past work experience:")
+        instructions = st.text_input(
+                                "Ask any question about Dan's resume or past work experience:"
+                                )
         submit_button = st.form_submit_button(label="Ask")
 
         if submit_button:
@@ -185,7 +229,8 @@ def main():
             summary = manager.get_summary()
 
             st.write(summary)
-
+            
+            #test run steps
             # st.text("Run Steps:")
             # st.code(manager.run_steps(), line_numbers=True)
 

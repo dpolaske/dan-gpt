@@ -103,6 +103,7 @@ def main():
 
     # Streamlit interface
     st.title("Dan GPT")
+    st.write("[LinkedIn](https://www.linkedin.com/in/polaske/)")
 
     with st.form(key="user_input_form"):
         instructions = st.text_input("Ask any question about Dan's resume or past work experience:")

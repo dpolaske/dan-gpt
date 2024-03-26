@@ -102,11 +102,93 @@ def main():
     manager = AssistantManager()
 
     # Streamlit interface
+    button_css = """
+                <style>
+                    a {
+                        color: yellow;  /* Blue color for links */
+                        text-decoration: none;  /* No underline */
+                        }
+                    a:hover {
+                        color: white;  /* Green color on hover */
+                        }
+                    a:visited {
+                        color: yellow;  /* Green color on hover */
+                        }
+                    a[href^="mailto:"] {
+                        color: yellow;  /* Green color on hover */
+                        }
+                div.stButton > button:first-child {
+                    background-color: #222222;
+                    color: yellow;
+                    border: 2px solid #FFFF00;
+                    outline: none;
+                    
+                }
+                div.stButton > button:hover {
+                    background-color: #FFFF00;
+                    color: #222222;
+                    border: 2px solid #FFFF00;
+                    outline: none;
+                }
+                div.stButton > button:focus:not(:active) {
+                    color: #222222; 
+                    background-color: #FFFF00; 
+                    border-color: #FFFF00; 
+                    outline: none; 
+                }
+
+                div.stButton > button:focus:(:active) {
+                    color: #222222; 
+                    background-color: #FFFF00; 
+                    border-color: #FFFF00; 
+                    outline: none; 
+                }
+
+                div.stButton > button:focus:active) {
+                    color: #222222; 
+                    background-color: #FFFF00; 
+                    border-color: #FFFF00; 
+                    outline: none; 
+                }
+
+                div.stTextInput > div > div > input {
+                    border-color: #FFFF00; 
+                }
+
+                div.stTextInput > div > div > input:focus
+                    border-color: #FFFF00; 
+                    box-shadow: 0 0 0 2px #FFFF00;
+                    outline: none;
+                }
+
+                div.stTextInput > div > div > input:hover {
+                    border-color: #FFFF00; 
+                }
+
+                div.stTextInput > div > div > input:focus:not(:active) {
+                    border-color: #FFFF00; 
+                }
+
+                div.stTextInput > div > div > input:focus:(:active) {
+                    border-color: #FFFF00; 
+                }
+
+                div.stTextInput > div > div > input:focus:active) {
+                    border-color: #FFFF00; 
+                }
+                </style>
+                """
+
+    st.markdown(button_css, unsafe_allow_html=True)
+    
     st.title("Dan GPT")
-    st.write("[LinkedIn](https://www.linkedin.com/in/polaske/)")
+    
+    st.markdown('##### [Resume](https://drive.google.com/file/d/1PAfp5LhBju65qMU-rAlHDbk-LEI895GY/view?usp=sharing) | [LinkedIn](https://www.linkedin.com/in/polaske/) | dan.polaske@gmail.com')
 
     with st.form(key="user_input_form"):
-        instructions = st.text_input("Ask any question about Dan's resume or past work experience:")
+        instructions = st.text_input(
+                                "Ask any question about Dan's resume or past work experience:"
+                                )
         submit_button = st.form_submit_button(label="Ask")
 
         if submit_button:

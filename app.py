@@ -73,36 +73,6 @@ class AssistantManager:
             self.summary = "\n".join(summary)
             print(f"SUMMARY-----> {role.capitalize()}: ==> {response}")
 
-            # for msg in messages:
-            #     role = msg.role
-            #     content = msg.content[0].text.value
-            #     print(f"SUMMARY-----> {role.capitalize()}: ==> {content}")
-
-    # def call_required_functions(self, required_actions):
-    #     if not self.run:
-    #         return
-    #     tool_outputs = []
-
-    #     for action in required_actions["tool_calls"]:
-    #         func_name = action["function"]["name"]
-    #         arguments = json.loads(action["function"]["arguments"])
-
-    #         if func_name == "get_news":
-    #             output = get_news(topic=arguments["topic"])
-    #             print(f"STUFFFFF;;;;{output}")
-    #             final_str = ""
-    #             for item in output:
-    #                 final_str += "".join(item)
-
-    #             tool_outputs.append({"tool_call_id": action["id"], "output": final_str})
-    #         else:
-    #             raise ValueError(f"Unknown function: {func_name}")
-
-    #     print("Submitting outputs back to the Assistant...")
-    #     self.client.beta.threads.runs.submit_tool_outputs(
-    #         thread_id=self.thread.id, run_id=self.run.id, tool_outputs=tool_outputs
-    #     )
-
     # for streamlit
     def get_summary(self):
         return self.summary
@@ -124,15 +94,6 @@ class AssistantManager:
                     self.call_required_functions(
                         required_actions=run_status.required_action.submit_tool_outputs.model_dump()
                     )
-
-    # # Run the steps
-    # def run_steps(self):
-    #     run_steps = self.client.beta.threads.runs.steps.list(
-    #         thread_id=self.thread.id, run_id=self.run.id
-    #     )
-    #     print(f"Run-Steps::: {run_steps}")
-    #     return run_steps.data
-
 
 def main():
     # news = get_news("bitcoin")
@@ -185,7 +146,8 @@ def main():
             summary = manager.get_summary()
 
             st.write(summary)
-
+            
+            #test run steps
             # st.text("Run Steps:")
             # st.code(manager.run_steps(), line_numbers=True)
 

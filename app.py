@@ -183,7 +183,7 @@ def main():
     
     st.title("Dan GPT")
     
-    st.markdown('##### [Resume](https://drive.google.com/file/d/1PAfp5LhBju65qMU-rAlHDbk-LEI895GY/view?usp=sharing) | [LinkedIn](https://www.linkedin.com/in/polaske/) | dan.polaske@gmail.com')
+    st.markdown('##### [Resume](https://drive.google.com/file/d/1k6WZ-NMwHSLLrKDrW2DjTiw-_AnHKXjr/view?usp=sharing) | [LinkedIn](https://www.linkedin.com/in/polaske/) | dan.polaske@gmail.com')
 
     with st.form(key="user_input_form"):
         instructions = st.text_input(
